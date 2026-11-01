@@ -1,0 +1,20 @@
+_ > nanoagent.plugin.v0001.ProductConfig:
+  tagline: Generate safe, deterministic SQLite SELECT queries against a pinned bookstore schema.
+
+  summary: >-
+    SQLite Query Writer converts structured query specifications into parameterized
+    SQLite SELECT statements. It validates tables, columns, operators, sorting,
+    and limits against a fixed schema. An independent verifier reconstructs
+    the expected SQL and checks every output field.
+
+  highlights:
+    - Pinned bookstore schema with four predefined tables.
+    - Parameterized SQL prevents filter values from becoming SQL syntax.
+    - Independent deterministic output verification.
+    - Rejects unsupported tables, columns, operators, and limits.
+
+  steps:
+    - "Specify table: Choose authors, books, customers, or orders."
+    - "Specify selection: Provide columns and optional filters."
+    - "Generate query: Receive SQL and ordered parameters."
+    - "Verify result: Independently reconstruct and compare the output."

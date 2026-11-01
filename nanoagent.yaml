@@ -1,0 +1,35 @@
+_ > nanoagent.plugin.v0001.ManifestConfig:
+  id: sqlite-query-writer
+  name: SQLite Query Writer
+  version: 0.1.0
+  status: in-development
+  spec: nanoagent.plugin/v0001
+
+  runtime > nanoagent.plugin.v0001.RuntimeConfig:
+    type: mcp_stdio
+    command: [uv, run, --frozen, python, -m, plugin]
+
+  permissions > nanoagent.plugin.v0001.PermissionsConfig:
+    network > nanoagent.plugin.v0001.NetworkConfig:
+      hosts: []
+    filesystem > nanoagent.plugin.v0001.FilesystemConfig:
+      write: [workspace]
+
+  tools > dict[contract.Tool, nanoagent.plugin.v0001.ToolConfig]:
+    write_sql_query:
+      description: Generate a deterministic parameterized SQLite SELECT query against the pinned bookstore schema.
+
+  tasks > dict[contract.Task, nanoagent.plugin.v0001.TaskConfig]:
+    write-sql-query:
+      description: Convert a structured query specification into independently verifiable SQLite SQL.
+      runner: tool
+      tools: [write_sql_query]
+      reference: null
+      instructions: >-
+        Generate a SQLite SELECT query using the write_sql_query tool.
+        Use only the pinned bookstore schema.
+        Select exactly one table per query.
+        Specify valid columns, filters, ordering, and an optional limit.
+        Use only the documented comparison operators.
+        Do not generate arbitrary SQL or attempt database mutations.
+        The tool returns parameterized SQL and its corresponding parameters.
