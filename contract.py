@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from enum import StrEnum
-from typing import Annotated
+from typing import Annotated, Any
 
 from slimconfig import Output
 
@@ -21,8 +21,9 @@ class Filter(Output):
         "Allowed operators: =, !=, >, >=, <, <=, LIKE, IS NULL, IS NOT NULL.",
     ]
     value: Annotated[
-        str | int | float | None,
-        "A scalar parameter value. NULL operators require None; other operators require a non-null scalar.",
+        Any,
+        "A scalar parameter value (str, int, or float). "
+        "NULL operators require None; other operators require a non-null scalar.",
     ]
 
 
@@ -58,8 +59,8 @@ class WriteSQLQueryInput(Output):
 class WriteSQLQueryOutput(Output):
     sql: Annotated[str, "The generated parameterized SQLite SELECT statement."]
     parameters: Annotated[
-        list[str | int | float | None],
-        "Parameter values in SQL placeholder order.",
+        list[Any],
+        "Parameter values in SQL placeholder order (str, int, or float).",
     ]
     table: Annotated[str, "The selected table."]
     columns: Annotated[list[str], "The selected columns."]
