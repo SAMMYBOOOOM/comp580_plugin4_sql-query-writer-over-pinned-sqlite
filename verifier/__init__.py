@@ -1,7 +1,6 @@
 import math
-from collections.abc import Iterable
 
-from contract import TASKS, TOOLS, Task, Tool
+from contract import TASKS, Task, Tool
 
 
 SCHEMA = {
@@ -158,9 +157,8 @@ def _derive(inputs):
         if type(direction) is not str or direction not in DIRECTIONS:
             return "unsupported sorting direction"
 
-    if limit is not None:
-        if type(limit) is not int or not 1 <= limit <= 1000:
-            return "limit must be an integer from 1 through 1000"
+    if limit is not None and (type(limit) is not int or not 1 <= limit <= 1000):
+        return "limit must be an integer from 1 through 1000"
 
     if type(distinct) is not bool:
         return "distinct must be a boolean"

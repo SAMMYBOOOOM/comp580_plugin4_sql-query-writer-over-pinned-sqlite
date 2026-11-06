@@ -2,6 +2,7 @@ from mcp.server.fastmcp import FastMCP
 
 from .write_sql_query import write_sql_query
 
+
 mcp = FastMCP("sqlite-query-writer")
 
 IMPLEMENTATIONS = {

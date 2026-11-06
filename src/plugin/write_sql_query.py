@@ -1,10 +1,7 @@
 import math
 from typing import Any
 
-from contract import (
-    WriteSQLQueryInput,
-    WriteSQLQueryOutput,
-)
+from contract import WriteSQLQueryOutput
 
 
 SCHEMA = {
@@ -150,9 +147,8 @@ def _validate_input(
         if type(direction) is not str or direction not in ALLOWED_DIRECTIONS:
             raise ValueError("unsupported sorting direction")
 
-    if limit is not None:
-        if type(limit) is not int or not 1 <= limit <= MAX_LIMIT:
-            raise ValueError("limit must be an integer from 1 through 1000")
+    if limit is not None and (type(limit) is not int or not 1 <= limit <= MAX_LIMIT):
+        raise ValueError("limit must be an integer from 1 through 1000")
 
     if type(distinct) is not bool:
         raise ValueError("distinct must be a boolean")
